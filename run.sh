@@ -1,2 +1,3 @@
 #!/bin/sh
-python -m flask --app app --debug run
+
+flask --app app --debug run
