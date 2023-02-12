@@ -3,3 +3,4 @@ venv/
 .env
 __pychache__/
 app/__pycache__/
+app/routes/__pycache__/
