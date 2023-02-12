@@ -1,24 +1,31 @@
-from flask import Flask, jsonify
+from flask import Flask
+from app.config import mysql_db_url
+from app.routes import rest_api_routes
+from app.db import db
+from flask_migrate import Migrate
+from app.db.models import *
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def index():
-    data = {
-        "page name": "index page",
-        "page route": "/"
-    }
-
-    return jsonify(data)
+migrate = Migrate()
 
 
-@app.route("/about")
-def about():
-    data = {
-        "page name": "about page",
-        "page route": "/about"
-    }
+def create_app():
+    app = Flask(__name__)
 
-    return jsonify(data)
+    app.config["SQLALCHEMY_DATABASE_URI"] = mysql_db_url()
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.register_blueprint(rest_api_routes)
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    with app.app_context():
+        db.create_all()
+
+    return app
+
+
+
+
+
+
 
