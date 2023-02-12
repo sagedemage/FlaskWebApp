@@ -1,7 +1,11 @@
 from flask import Flask
-from app.db import db, create_db
 from app.config import mysql_db_url
 from app.routes import rest_api_routes
+from app.db import db
+from flask_migrate import Migrate
+from app.db.models import *
+
+migrate = Migrate()
 
 
 def create_app():
@@ -12,9 +16,10 @@ def create_app():
     app.register_blueprint(rest_api_routes)
 
     db.init_app(app)
+    migrate.init_app(app, db)
 
-    #with app.app_context():
-    #db.create_all()
+    with app.app_context():
+        db.create_all()
 
     return app
 
