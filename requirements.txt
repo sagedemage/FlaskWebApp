@@ -4,3 +4,4 @@ Flask-MySQL==1.5.2
 python-dotenv==0.21.1
 PyMySQL==1.0.2
 Flask-Migrate==4.0.4
+SQLAlchemy==2.0.3
