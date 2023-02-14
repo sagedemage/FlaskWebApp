@@ -11,6 +11,11 @@ class User(db.Model):
     password = Column(String(100))
     note = relationship("Note", backref="user")
 
+    def __init__(self, email, username, password):
+        self.email = email
+        self.username = username
+        self.password = password
+
 
 class Note(db.Model):
     __tablename__ = "note"
