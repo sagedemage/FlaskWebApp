@@ -1,7 +1,7 @@
 from app.db import db
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model):
     __tablename__ = "user"
@@ -14,7 +14,11 @@ class User(db.Model):
     def __init__(self, email, username, password):
         self.email = email
         self.username = username
-        self.password = password
+        self.password = generate_password_hash(password, 'sha256', 16)
+
+    def check_password(self, password):
+        password_match = check_password_hash(self.password, password)
+        return password_match
 
 
 class Note(db.Model):
