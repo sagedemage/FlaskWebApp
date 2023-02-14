@@ -1,4 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from app.db import db
+from app.db.models import User
+import json
 
 rest_api_routes = Blueprint('rest_api_routes', __name__)
 
@@ -15,6 +18,26 @@ def index():
 
 @rest_api_routes.route("/about")
 def about():
+    data = {
+        "page name": "about page",
+        "page route": "/about"
+    }
+
+    return jsonify(data)
+
+@rest_api_routes.route("/api/register", methods=["POST"])
+def register():
+    data = json.loads(request.data)
+
+    email = data["email"]
+    username = data["username"]
+    password = data["password"]
+
+    user = User(email=email, username=username, password=password)
+
+    db.session.add(user)
+    db.session.commit()
+    
     data = {
         "page name": "about page",
         "page route": "/about"
