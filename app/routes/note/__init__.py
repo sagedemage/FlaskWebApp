@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.note import add_user_note, delete_user_note, edit_user_note
+from app.note import add_user_note, delete_user_note, edit_user_note, fetch_user_note
 import json
 
 note_routes = Blueprint('note_routes', __name__)
@@ -57,6 +57,17 @@ def edit_note():
     description = data["description"]
 
     msg = edit_user_note(note_id, title, description)
+
+    return jsonify(msg)
+
+
+@note_routes.route("/api/fetch-note", methods=["POST"])
+def fetch_note():
+    data = json.loads(request.data)
+
+    note_id = data["note_id"]
+
+    msg = fetch_user_note(note_id)
 
     return jsonify(msg)
 
