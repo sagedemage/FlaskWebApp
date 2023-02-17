@@ -3,8 +3,10 @@ import os
 from flask import Blueprint, jsonify, request
 from app.db import db
 from app.db.models import User
+from app.auth.token import decode_token
+from app.auth import user_login
 import json
-import jwt
+
 import dotenv
 
 dotenv.load_dotenv()
@@ -66,29 +68,7 @@ def login():
     username = data["username"]
     password = data["password"]
 
-    email_exists = User.query.filter_by(email=username).first()
-    username_exists = User.query.filter_by(username=username).first()
-
-    msg = {}
-
-    if email_exists is not None:
-        if email_exists.check_password(password):
-            user_id = email_exists.get_id()
-            msg["msg"] = "success"
-            msg["token"] = generate_token(user_id)
-        else:
-            msg["err_msg"] = "wrong credentials"
-    elif username_exists is not None:
-        if username_exists.check_password(password):
-            user_id = username_exists.get_id()
-            msg["msg"] = "success"
-            msg["token"] = generate_token(user_id)
-        else:
-            msg["err_msg"] = "wrong credentials"
-    elif email_exists is None:
-        msg["err_msg"] = "wrong credentials"
-    elif username_exists is None:
-        msg["err_msg"] = "wrong credentials"
+    msg = user_login(username, password)
 
     return jsonify(msg)
 
@@ -104,13 +84,4 @@ def get_decoded_token():
     return jsonify(msg)
 
 
-def generate_token(user_id):
-    secret = os.getenv("JWT_SECRET")
-    encoded_token = jwt.encode({"auth": True, "user_id": user_id}, secret, algorithm="HS256")
-    return encoded_token
 
-
-def decode_token(token):
-    secret = os.getenv("JWT_SECRET")
-    token_data = jwt.decode(token, secret, algorithms=["HS256"])
-    return token_data
