@@ -1,10 +1,9 @@
 import os
 
 from flask import Blueprint, jsonify, request
-from app.db import db
-from app.db.models import User
+
 from app.auth.token import decode_token
-from app.auth import user_login
+from app.auth import user_login, user_registration
 import json
 
 import dotenv
@@ -42,21 +41,7 @@ def register():
     username = data["username"]
     password = data["password"]
 
-    email_exists = User.query.filter_by(email=email).first()
-    username_exists = User.query.filter_by(username=username).first()
-
-    user = User(email=email, username=username, password=password)
-
-    msg = {}
-
-    if email_exists is not None:
-        msg["err_msg"] = "email exists"
-    elif username_exists is not None:
-        msg["err_msg"] = "username exists"
-    else:
-        db.session.add(user)
-        db.session.commit()
-        msg["msg"] = "success"
+    msg = user_registration(email, username, password)
 
     return jsonify(msg)
 
