@@ -1,4 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from app.note import add_user_note
+import json
 
 note_routes = Blueprint('note_routes', __name__)
 
@@ -21,6 +23,18 @@ def about():
     }
 
     return jsonify(data)
+
+
+@note_routes.route("/api/add-note", methods=["POST"])
+def add_note():
+    data = json.loads(request.data)
+
+    title = data["title"]
+    description = data["description"]
+
+    msg = add_user_note(title, description)
+
+    return jsonify(msg)
 
 
 
