@@ -27,3 +27,12 @@ def edit_user_note(note_id, title, description):
     msg = {"msg": "edited_note"}
 
     return msg
+
+
+def fetch_user_note(note_id):
+    note = Note.query.filter_by(id=note_id).first()
+    title = note.get_title()
+    description = note.get_description()
+    msg = {"title": title, "description": description}
+
+    return msg
