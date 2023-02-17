@@ -11,26 +11,6 @@ dotenv.load_dotenv()
 auth_routes = Blueprint('auth_routes', __name__)
 
 
-@auth_routes.route("/")
-def index():
-    data = {
-        "page name": "index page",
-        "page route": "/"
-    }
-
-    return jsonify(data)
-
-
-@auth_routes.route("/about")
-def about():
-    data = {
-        "page name": "about page",
-        "page route": "/about"
-    }
-
-    return jsonify(data)
-
-
 @auth_routes.route("/api/register", methods=["POST"])
 def register():
     data = json.loads(request.data)
