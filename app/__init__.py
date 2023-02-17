@@ -1,6 +1,6 @@
 from flask import Flask
 from app.config import mysql_db_url
-from app.routes import rest_api_routes
+from app.routes.auth import auth_routes
 from app.db import db
 from flask_migrate import Migrate
 from app.db.models import *
@@ -13,7 +13,7 @@ def create_app():
 
     app.config["SQLALCHEMY_DATABASE_URI"] = mysql_db_url()
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.register_blueprint(rest_api_routes)
+    app.register_blueprint(auth_routes)
 
     db.init_app(app)
     migrate.init_app(app, db)
