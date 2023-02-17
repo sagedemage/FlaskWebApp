@@ -31,3 +31,8 @@ class Note(db.Model):
     description = Column(String(100))
     user_id = Column(Integer, ForeignKey("user.id"))
 
+    def edit_note(self, title, description):
+        self.title = title
+        self.description = description
+
+
