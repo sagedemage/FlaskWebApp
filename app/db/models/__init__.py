@@ -20,6 +20,9 @@ class User(db.Model):
         password_match = check_password_hash(self.password, password)
         return password_match
 
+    def get_id(self):
+        return self.id
+
 
 class Note(db.Model):
     __tablename__ = "note"
