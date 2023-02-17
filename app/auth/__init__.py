@@ -4,6 +4,7 @@ from app.db.models import User
 from app.db import db
 from app.db.models import User
 
+
 def user_login(username, password):
     """implementation starts here"""
 
