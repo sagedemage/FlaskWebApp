@@ -1,6 +1,5 @@
 
 from app.auth.token import generate_token
-from app.db.models import User
 from app.db import db
 from app.db.models import User
 
