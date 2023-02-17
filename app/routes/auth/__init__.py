@@ -1,5 +1,3 @@
-import os
-
 from flask import Blueprint, jsonify, request
 
 from app.auth.token import decode_token
