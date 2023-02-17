@@ -18,3 +18,12 @@ def delete_user_note(note_id):
     msg = {"msg": "deleted_note"}
 
     return msg
+
+
+def edit_user_note(note_id, title, description):
+    note = Note.query.filter_by(id=note_id).first()
+    note.edit_note(title, description)
+    db.session.commit()
+    msg = {"msg": "edited_note"}
+
+    return msg
