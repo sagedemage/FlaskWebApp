@@ -10,7 +10,7 @@ import dotenv
 
 dotenv.load_dotenv()
 
-auth_routes = Blueprint('rest_api_routes', __name__)
+auth_routes = Blueprint('auth_routes', __name__)
 
 
 @auth_routes.route("/")
