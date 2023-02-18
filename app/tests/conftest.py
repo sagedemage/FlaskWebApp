@@ -1,14 +1,18 @@
 import pytest
-
+import os
 from app import create_app
+import dotenv
+
+dotenv.load_dotenv()
 
 
 @pytest.fixture()
 def app():
+    os.environ["TESTING"] = "true"
     app = create_app()
     app.config.update({
         "TESTING": True,
-        "WTF_CSRF_ENABLED": False,
+        "WTF_CSRF_ENABLED": False
     })
 
     yield app
