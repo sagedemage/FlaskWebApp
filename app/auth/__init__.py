@@ -15,14 +15,14 @@ def user_login(username, password):
     if email_exists is not None:
         if email_exists.check_password(password):
             user_id = email_exists.get_id()
-            msg["msg"] = "success"
+            msg["msg"] = "login success"
             msg["token"] = generate_token(user_id)
         else:
             msg["err_msg"] = "wrong credentials"
     elif username_exists is not None:
         if username_exists.check_password(password):
             user_id = username_exists.get_id()
-            msg["msg"] = "success"
+            msg["msg"] = "login success"
             msg["token"] = generate_token(user_id)
         else:
             msg["err_msg"] = "wrong credentials"
@@ -49,7 +49,7 @@ def user_registration(email, username, password):
     else:
         db.session.add(user)
         db.session.commit()
-        msg["msg"] = "success"
+        msg["msg"] = "registration success"
 
     return msg
 

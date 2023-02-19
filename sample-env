@@ -1,2 +1,3 @@
 JWT_SECRET = "jwt secret"
 DB_PASSWORD = "database password"
+TESTING = "false"
