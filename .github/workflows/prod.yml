@@ -4,6 +4,9 @@ on:
   push:
     branches: [ 'main' ]
 
+env:
+  JWT_SECRET: = "secret"
+
 jobs:
   run_go_test:
     runs-on: ubuntu-latest
