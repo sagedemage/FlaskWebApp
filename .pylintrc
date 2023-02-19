@@ -1,0 +1,13 @@
+[MAIN]
+
+# Minimum supported python version
+py-version = 3.11.1
+
+[MESSAGES CONTROL]
+
+# Disable messages
+
+disable=
+    redefined-outer-name,
+    protected-access
+

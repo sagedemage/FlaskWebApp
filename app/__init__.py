@@ -1,19 +1,23 @@
+""" Main App Source File """
+
+import os
 from flask import Flask
+from flask_migrate import Migrate
+from dotenv import load_dotenv
 from app.config import mysql_db_url, sqlite_url
 from app.routes.auth import auth_routes
 from app.routes.note import note_routes
 from app.db import db, create_db
-from flask_migrate import Migrate
 from app.db.models import *
-import dotenv
-import os
 
-dotenv.load_dotenv()
+
+load_dotenv()
 
 migrate = Migrate()
 
 
 def create_app():
+    """ Create Flask App """
     app = Flask(__name__)
 
     if os.getenv("TESTING") == "false":
@@ -43,10 +47,3 @@ def create_app():
             db.create_all()
 
     return app
-
-
-
-
-
-
-
