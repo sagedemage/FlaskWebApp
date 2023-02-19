@@ -17,6 +17,6 @@ pip install -r requirements.txt
 
 Run app
 ```
-flask --app app/__init__.py run
+flask run
 ```
 
