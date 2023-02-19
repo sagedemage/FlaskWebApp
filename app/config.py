@@ -17,7 +17,6 @@ DB_DIR = "tests/database"
 
 
 def mysql_db_url():
-    # 'mysql://username:password@host:port/database_name'
     db_url = 'mysql+pymysql://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST + ':' + DB_PORT + '/' + DB_NAME
     return db_url
 
