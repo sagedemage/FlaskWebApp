@@ -1,3 +1,4 @@
+""" Authentication """
 
 from app.auth.token import generate_token
 from app.db import db
@@ -5,8 +6,7 @@ from app.db.models import User
 
 
 def user_login(username, password):
-    """implementation starts here"""
-
+    """ User Login """
     email_exists = User.query.filter_by(email=username).first()
     username_exists = User.query.filter_by(username=username).first()
 
@@ -35,6 +35,7 @@ def user_login(username, password):
 
 
 def user_registration(email, username, password):
+    """ User Registration """
     email_exists = User.query.filter_by(email=email).first()
     username_exists = User.query.filter_by(username=username).first()
 
@@ -52,5 +53,3 @@ def user_registration(email, username, password):
         msg["msg"] = "registration success"
 
     return msg
-
-

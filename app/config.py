@@ -1,5 +1,6 @@
-import os
+""" Configure App """
 
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -17,19 +18,19 @@ DB_DIR = "tests/database"
 
 
 def mysql_db_url():
-    db_url = 'mysql+pymysql://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST + ':' + DB_PORT + '/' + DB_NAME
+    """ Get MySQL Database URL """
+    db_url = 'mysql+pymysql://' + DB_USERNAME + ':' + DB_PASSWORD + '@' \
+             + DB_HOST + ':' + DB_PORT + '/' + DB_NAME
     return db_url
 
 
 def sqlite_path():
+    """ Get SQLite Database Path """
     db_path = os.path.join(BASE_DIR, DB_DIR, "test.sqlite")
     return db_path
 
 
 def sqlite_url():
+    """ Get SQLite Database URL """
     db_url = "sqlite:///" + os.path.join(BASE_DIR, DB_DIR, "test.sqlite")
     return db_url
-
-
-
-
